@@ -147,15 +147,10 @@ textarea{height:70px;resize:none}
       <div class="fl"><label>Empresa</label><select id="cad-emp" onchange="mudarEmpCad(this.value)" style="background:#030503;border:1px solid #1a2a1a;border-radius:8px;padding:9px 12px;color:#eee;font-size:13px;outline:none;width:100%">
         <option value="">Selecione...</option>
         <optgroup label="Grupo EventPro">
-          <option value="Ana Castela">Ana Castela</option>
-          <option value="Leo e Raphael">Leo e Raphael</option>
-          <option value="Country Beat">Country Beat</option>
-          <option value="Muierada">Muierada</option>
-          <option value="Francisco">Francisco</option>
+          <option value="Equipe Interna">Equipe Interna</option>
+          <option value="Parceiros">Parceiros</option>
+          <option value="Patrocinadores">Patrocinadores</option>
           <option value="Julia e Rafaela">Julia e Rafaela</option>
-          <option value="Julya e Maryana">Julya e Maryana</option>
-          <option value="Duda Bertelli">Duda Bertelli</option>
-          <option value="Kamila e Kavic">Kamila e Kavic</option>
           <option value="Escritorio EventPro">Escritorio EventPro</option>
         </optgroup>
         <option value="outra">Outra empresa</option>
@@ -244,8 +239,8 @@ textarea{height:70px;resize:none}
     </div>
     <button class="bto" id="beditcargo" style="width:100%;margin-top:12px;border-color:#c9973c;color:#c9973c">Editar empresa / funcao</button>
     <div id="editcargo-wrap" style="display:none;margin-top:10px">
-      <div class="fl"><label>Setor</label><select id="edit-setor" style="background:#030503;border:1px solid #1a2a1a;border-radius:8px;padding:9px 12px;color:#eee;font-size:13px;outline:none;width:100%"><option value="Artista">Artista</option><option value="Influenciador">Influenciador</option><option value="Diretoria">Diretoria</option><option value="Colaborador">Colaborador</option><option value="Convidado">Convidado</option></select></div>
-      <div class="fl"><label>Empresa</label><select id="edit-emp" onchange="mudarEmpEdit(this.value)" style="background:#030503;border:1px solid #1a2a1a;border-radius:8px;padding:9px 12px;color:#eee;font-size:13px;outline:none;width:100%"><option value="">Selecione...</option><optgroup label="Grupo EventPro"><option value="Ana Castela">Ana Castela</option><option value="Leo e Raphael">Leo e Raphael</option><option value="Country Beat">Country Beat</option><option value="Muierada">Muierada</option><option value="Francisco">Francisco</option><option value="Julia e Rafaela">Julia e Rafaela</option><option value="Julya e Maryana">Julya e Maryana</option><option value="Duda Bertelli">Duda Bertelli</option><option value="Kamila e Kavic">Kamila e Kavic</option><option value="Escritorio EventPro">Escritorio EventPro</option></optgroup><option value="outra">Outra empresa</option></select></div>
+      <div class="fl"><label>Setor</label><select id="edit-setor" style="background:#030503;border:1px solid #1a2a1a;border-radius:8px;padding:9px 12px;color:#eee;font-size:13px;outline:none;width:100%"><option value="Externo">Externo</option><option value="Influenciador">Influenciador</option><option value="Diretoria">Diretoria</option><option value="Colaborador">Colaborador</option><option value="Convidado">Convidado</option></select></div>
+      <div class="fl"><label>Empresa</label><select id="edit-emp" onchange="mudarEmpEdit(this.value)" style="background:#030503;border:1px solid #1a2a1a;border-radius:8px;padding:9px 12px;color:#eee;font-size:13px;outline:none;width:100%"><option value="">Selecione...</option><optgroup label="Grupo EventPro"><option value="Equipe Interna">Equipe Interna</option><option value="Parceiros">Parceiros</option><option value="Patrocinadores">Patrocinadores</option><option value="Imprensa">Imprensa</option><option value="Convidados VIP">Convidados VIP</option></optgroup><option value="outra">Outra empresa</option></select></div>
       <div id="edit-emp-outra-wrap" style="display:none" class="fl"><label>Nome da empresa</label><input id="edit-emp-outra" placeholder="Digite o nome"></div>
       <div class="fl"><label>Funcao</label><select id="edit-car" style="background:#030503;border:1px solid #1a2a1a;border-radius:8px;padding:9px 12px;color:#eee;font-size:13px;outline:none;width:100%"><option value="">Selecione a empresa primeiro...</option></select></div>
       <div id="edit-car-outro-wrap" style="display:none" class="fl"><label>Qual funcao?</label><input id="edit-car-outro" placeholder="Digite sua funcao"></div>
@@ -291,7 +286,7 @@ textarea{height:70px;resize:none}
       <div class="fl"><label>Horario fim (opcional)</label><input id="evhf" type="time"></div>
     </div>
     <div class="fl"><label>Link Maps</label><input id="evm" placeholder="https://maps.google.com/..."></div>
-    <div class="fl"><label>Atracao 1</label><input id="eva1" placeholder="Ex: Ana Castela"></div>
+    <div class="fl"><label>Atracao 1</label><input id="eva1" placeholder="Ex: DJ, Banda, Palestrante"></div>
     <div class="fl"><label>Instagram Atracao 1</label><input id="evi1" placeholder="https://instagram.com/..."></div>
     <div class="fl"><label>Atracao 2</label><input id="eva2" placeholder="Ex: CountryBeat"></div>
     <div class="fl"><label>Instagram Atracao 2</label><input id="evi2" placeholder="https://instagram.com/..."></div>
@@ -357,7 +352,7 @@ var SB="https://pxiibrvyszhlhbqnerok.supabase.co";
 var KY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4aWlicnZ5c3pobGhicW5lcm9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNzM0MzIsImV4cCI6MjA5Mjc0OTQzMn0.IlCf0dq13OIDeK8UWCzXIQOluDm7Q7vmfeKcYO-QBds";
 var LC="https://robsafonso.github.io/EventPro/cadastro-externo.html";
 var LCV="https://robsafonso.github.io/EventPro/convite.html";
-var SETS=["Todos","Ana Castela","Leo e Raphael","Country Beat","Muierada","Francisco","Julia e Rafaela","Julya e Maryana","Duda Bertelli","Kamila e Kavic","Escritorio EventPro","Outros"];
+var SETS=["Todos","Equipe Interna","Parceiros","Patrocinadores","Imprensa","Convidados VIP","Outros"];
 var COR={Artista:"#7c3aed",Influenciador:"#0891b2",Diretoria:"#b45309",Colaborador:"#1e7a35",Convidado:"#555"};
 var cads=[],cods=[],evs=[],sel=[],fset="Todos",fk="t",lista=null,pa=null,eva=null,cf="Todos",cs=[],eid=null;
 function q(id){return document.getElementById(id);}
@@ -758,7 +753,7 @@ function delLote(id){
     load();
   }).catch(function(e){alert("Erro ao excluir: "+e.message);});
 }
-var CARGOS_ARTISTA=["Artista / Cantor","Musico / Banda","Bailarino / Dancarino","Diretor de Palco","Producao","Tecnico de Som","Tecnico de Luz","Fotografo","Videomaker","Camarim","Maquiagem","Assessoria de Imprensa","Comercial / Agenciamento","Seguranca","Motorista / Transfer","Road Manager","Outro"];
+var CARGOS_EXT=["Apresentador","Tecnico","Operacional","Diretor de Palco","Producao","Tecnico de Som","Tecnico de Luz","Fotografo","Videomaker","Camarim","Maquiagem","Assessoria de Imprensa","Comercial / Agenciamento","Seguranca","Motorista / Transfer","Road Manager","Outro"];
 var CARGOS_ESCRITORIO=["Socio / Fundador","CEO / Presidente","CMO / Diretor de Marketing","CFO / Diretor Financeiro","Diretor Comercial","Diretor de Eventos","Gerente de Marketing","Marketing Digital","Publicidade","Licenciamento","Assessoria de Imprensa","Producao de Eventos","RH / Recursos Humanos","Financeiro / Contabilidade","Juridico","Administrativo","Secretaria","Seguranca","Outro"];
 var CARGOS_OUTRA=["Presidente / CEO","Vice-Presidente","Diretor Executivo","Diretor Comercial","Diretor de Marketing","Diretor Financeiro","Gerente Geral","Gerente Comercial","Coordenador","Supervisor","Analista","Consultor","Relacoes Publicas","Marketing","Comercial / Vendas","Financeiro","Juridico","RH","Administrativo","Secretaria","Outro"];
 function mudarEmpCad(v){
@@ -766,7 +761,7 @@ function mudarEmpCad(v){
   if(w)w.style.display=v==="outra"?"block":"none";
   var s=q("cad-car");
   s.innerHTML="";
-  var l=v==="Escritorio EventPro"?CARGOS_ESCRITORIO:v==="outra"?CARGOS_OUTRA:v?CARGOS_ARTISTA:[];
+  var l=v==="Escritorio EventPro"?CARGOS_ESCRITORIO:v==="outra"?CARGOS_OUTRA:v?CARGOS_EXT:[];
   l.forEach(function(c){s.innerHTML+="<option value='"+(c==="Outro"?"outro":c)+"'>"+c+"</option>";});
   if(q("cad-car-outro-wrap"))q("cad-car-outro-wrap").style.display="none";
   s.onchange=function(){if(q("cad-car-outro-wrap"))q("cad-car-outro-wrap").style.display=this.value==="outro"?"block":"none";};
@@ -776,7 +771,7 @@ function mudarEmpEdit(v){
   if(w)w.style.display=v==="outra"?"block":"none";
   var s=q("edit-car");
   s.innerHTML="";
-  var l=v==="Escritorio EventPro"?CARGOS_ESCRITORIO:v==="outra"?CARGOS_OUTRA:v?CARGOS_ARTISTA:[];
+  var l=v==="Escritorio EventPro"?CARGOS_ESCRITORIO:v==="outra"?CARGOS_OUTRA:v?CARGOS_EXT:[];
   l.forEach(function(c){s.innerHTML+="<option value='"+(c==="Outro"?"outro":c)+"'>"+c+"</option>";});
   if(q("edit-car-outro-wrap"))q("edit-car-outro-wrap").style.display="none";
   s.onchange=function(){if(q("edit-car-outro-wrap"))q("edit-car-outro-wrap").style.display=this.value==="outro"?"block":"none";};
@@ -789,7 +784,7 @@ q("beditcargo").onclick=function(){
     if(pa){
       var es=q("edit-emp");
       var ev=pa.empresa||"";
-      var ig=["Ana Castela","Leo e Raphael","Country Beat","Muierada","Francisco","Julia e Rafaela","Julya e Maryana","Duda Bertelli","Kamila e Kavic","Escritorio EventPro"];
+      var ig=["Equipe Interna","Parceiros","Patrocinadores","Imprensa","Convidados VIP"];
       if(ig.indexOf(ev)>=0){es.value=ev;mudarEmpEdit(ev);q("edit-car").value=pa.cargo||"";}
       else if(ev){es.value="outra";mudarEmpEdit("outra");q("edit-emp-outra").value=ev;q("edit-car").value=pa.cargo||"";}
     }
