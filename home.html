@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventPro  Sistema</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#2aab47;--primary-dark:#1a8c3a;--primary-dim:rgba(42,171,71,.08);--bg:#07090a;--bg2:#0d1210;--border:rgba(42,171,71,.12);--border2:rgba(255,255,255,.06);--text:#f0f2f0;--muted:#6b7d6b;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;}
+.page{max-width:420px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;padding-bottom:24px;}
+.topbar{padding:20px 20px 0;display:flex;align-items:center;justify-content:space-between;}
+.logo-wrap{display:flex;align-items:center;gap:10px;}
+.logo-img{height:36px;object-fit:contain;border-radius:8px;}
+.logo-txt{font-size:20px;font-weight:900;letter-spacing:2px;color:#fff;}
+.logo-txt span{color:var(--primary);}
+.sys-badge{background:var(--primary-dim);border:1px solid var(--border);color:var(--primary);font-size:9px;font-weight:600;letter-spacing:2px;padding:4px 9px;border-radius:20px;text-transform:uppercase;}
+.hero{padding:24px 20px 20px;border-bottom:1px solid var(--border2);}
+.user-row{display:flex;align-items:center;gap:12px;}
+.avatar{width:44px;height:44px;border-radius:12px;background:var(--primary-dark);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;flex-shrink:0;}
+.user-name{font-size:17px;font-weight:700;color:#fff;}
+.user-level{font-size:11px;color:var(--muted);margin-top:2px;}
+.user-pill{margin-left:auto;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:20px;}
+.pill-master{background:rgba(42,171,71,.15);border:1px solid rgba(42,171,71,.3);color:var(--primary);}
+.pill-admin{background:rgba(8,145,178,.12);border:1px solid rgba(8,145,178,.25);color:#0891b2;}
+.pill-vis{background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--muted);}
+.modules{padding:20px 20px 0;flex:1;}
+.sec-title{font-size:10px;font-weight:600;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.mod{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;padding:18px 16px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;transition:border-color .15s,transform .1s;-webkit-tap-highlight-color:transparent;}
+.mod:active{transform:scale(.97);}
+.mod::after{content:'';position:absolute;top:0;left:16px;right:16px;height:1.5px;border-radius:0 0 4px 4px;background:var(--ac,transparent);opacity:.7;}
+.mod.g{--ac:var(--primary);}
+.mod.b{--ac:#0891b2;}
+.mod.p{--ac:#8b5cf6;}
+.mod.o{--ac:#f59e0b;}
+.mod.g:active{background:#091409;}
+.mod.b:active{background:#04090e;}
+.mod-icon{font-size:22px;line-height:1;}
+.mod-name{font-size:13px;font-weight:700;color:#fff;}
+.mod-desc{font-size:10px;color:var(--muted);}
+.mod.wide{flex-direction:row;align-items:center;gap:14px;}
+.mod.wide .mod-icon{font-size:26px;}
+.mod.wide .mod-info{flex:1;}
+.footer{padding:20px 20px 0;display:flex;justify-content:center;}
+.btn-sair{background:transparent;border:1px solid var(--border2);border-radius:10px;padding:10px 20px;color:var(--muted);font-size:11px;font-family:inherit;cursor:pointer;}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;align-items:flex-end;justify-content:center;backdrop-filter:blur(8px);}
+.ov.on{display:flex;}
+.ov-box{background:var(--bg2);border:1px solid var(--border2);border-top-color:rgba(42,171,71,.2);border-radius:24px 24px 0 0;padding:32px 24px 44px;width:100%;max-width:420px;}
+.ov-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
+.ov-sub{font-size:12px;color:var(--muted);margin-bottom:24px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:10px;font-weight:600;color:var(--primary);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;}
+.field input,.field select{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:12px;padding:14px 16px;color:#fff;font-size:14px;font-family:inherit;outline:none;}
+.field input:focus{border-color:rgba(42,171,71,.4);}
+.btn-login{width:100%;background:var(--primary);border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;margin-top:8px;}
+.btn-login:active{background:var(--primary-dark);}
+.alert-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171;padding:11px 14px;border-radius:10px;font-size:12px;margin-bottom:14px;display:none;}
+.company-logo{text-align:center;margin-bottom:24px;}
+.company-logo img{height:50px;object-fit:contain;}
+.company-logo .logo-fallback{font-size:24px;font-weight:900;letter-spacing:2px;color:#fff;}
+.company-logo .logo-fallback span{color:var(--primary);}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <div class="logo-wrap">
+      <img id="top-logo-img" src="" class="logo-img" style="display:none" alt="Logo">
+      <div class="logo-txt" id="top-logo-txt"><span id="top-nome">EVENT</span><span id="top-nome2">PRO</span></div>
+    </div>
+    <div class="sys-badge">Sistema</div>
+  </div>
+  <div class="hero" id="hero" style="display:none">
+    <div class="user-row">
+      <div class="avatar" id="uav">A</div>
+      <div>
+        <div class="user-name" id="uname">Admin</div>
+        <div class="user-level" id="ulevel">Administrador</div>
+      </div>
+      <div class="user-pill" id="upill">Master</div>
+    </div>
+  </div>
+  <div class="modules" id="mods" style="display:none">
+    <div class="sec-title" style="margin-top:20px">Gestao</div>
+    <div class="grid2">
+      <a href="index.html" class="mod g"><div class="mod-icon">&#128101;</div><div class="mod-name">Gerente</div><div class="mod-desc">Cadastros e convites</div></a>
+      <a href="dashboard.html" class="mod g"><div class="mod-icon">&#128202;</div><div class="mod-name">Dashboard</div><div class="mod-desc">Visao em tempo real</div></a>
+    </div>
+    <div class="grid2" id="row-ops">
+      <a href="admin.html" class="mod b"><div class="mod-icon">&#127979;</div><div class="mod-name">Admin</div><div class="mod-desc">Check-in e listas</div></a>
+      <a href="checkin.html" class="mod b"><div class="mod-icon">&#128247;</div><div class="mod-name">Scanner</div><div class="mod-desc">QR Code portaria</div></a>
+    </div>
+    <div class="sec-title" style="margin-top:8px">Financeiro</div>
+    <div class="grid2">
+      <a href="tickets.html" class="mod o"><div class="mod-icon">&#127903;</div><div class="mod-name">Tickets</div><div class="mod-desc">Por responsavel</div></a>
+      <a href="orcamento.html" class="mod o"><div class="mod-icon">&#128176;</div><div class="mod-name">Orcamento</div><div class="mod-desc">Custos do evento</div></a>
+    </div>
+    <div class="sec-title" style="margin-top:8px">Recursos</div>
+    <div class="grid2">
+      <a href="mediakit.html" class="mod p"><div class="mod-icon">&#128203;</div><div class="mod-name">Media Kit</div><div class="mod-desc">Apresentacao</div></a>
+      <a href="manual.html" class="mod p"><div class="mod-icon">&#128214;</div><div class="mod-name">Manual</div><div class="mod-desc">Guia do sistema</div></a>
+    </div>
+    <div class="sec-title" style="margin-top:8px" id="sec-sistema">Sistema</div>
+    <div id="row-sistema">
+      <a href="#" class="mod g wide" onclick="abrirConfig();return false;">
+        <div class="mod-icon">&#9881;</div>
+        <div class="mod-info"><div class="mod-name">Configuracoes</div><div class="mod-desc">Empresa, usuarios e aparencia</div></div>
+      </a>
+    </div>
+  </div>
+  <div class="footer" id="footer" style="display:none">
+    <button class="btn-sair" onclick="sair()">Sair do sistema</button>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="ov" id="ov-login">
+  <div class="ov-box">
+    <div class="company-logo">
+      <img id="login-logo-img" src="" style="display:none" alt="Logo">
+      <div class="logo-fallback" id="login-logo-txt"><span id="login-nome">EVENT</span><span id="login-nome2">PRO</span></div>
+    </div>
+    <div class="ov-title">Bem-vindo</div>
+    <div class="ov-sub">Acesso restrito - equipe interna</div>
+    <div class="alert-box" id="alrt"></div>
+    <div class="field"><label>Usuario</label><input type="text" id="lin" placeholder="Seu nome" autocomplete="off" autocapitalize="none"></div>
+    <div class="field"><label>Senha</label><input type="password" id="lpass" placeholder=""></div>
+    <button class="btn-login" id="bent" onclick="entrar()">Entrar</button>
+  </div>
+</div>
+
+<!-- CONFIG -->
+<div class="ov" id="ov-config">
+  <div class="ov-box" style="max-height:90vh;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div class="ov-title">Configuracoes</div>
+      <button onclick="q('ov-config').classList.remove('on')" style="background:transparent;border:none;color:#6b7d6b;font-size:24px;cursor:pointer">&times;</button>
+    </div>
+    <div class="field"><label>Nome da empresa</label><input type="text" id="cfg-nome" placeholder="Ex: Minha Empresa"></div>
+    <div class="field"><label>Slogan (opcional)</label><input type="text" id="cfg-slogan" placeholder="Ex: Eventos e Producoes"></div>
+    <div class="field"><label>Logo URL (opcional)</label><input type="text" id="cfg-logo" placeholder="https://..."></div>
+    <div class="field"><label>Cor principal (hex)</label><input type="text" id="cfg-cor" placeholder="#2aab47"></div>
+    <button class="btn-login" onclick="salvarConfig()">Salvar aparencia</button>
+    <div style="border-top:1px solid rgba(255,255,255,.06);margin:20px 0 14px"></div>
+    <div style="font-size:10px;font-weight:600;letter-spacing:2px;color:#6b7d6b;text-transform:uppercase;margin-bottom:12px">Usuarios</div>
+    <div id="lista-admins" style="margin-bottom:16px;max-height:180px;overflow-y:auto"></div>
+    <div class="field"><label>Nome</label><input type="text" id="new-nome" placeholder="Nome do usuario" autocapitalize="words"></div>
+    <div class="field"><label>Senha</label><input type="text" id="new-senha" placeholder="Senha inicial"></div>
+    <div class="field"><label>Nivel</label><select id="new-nivel"><option value="master">Master</option><option value="admin">Admin</option><option value="visualizador">Visualizador</option></select></div>
+    <div id="gestao-alert" style="color:#f87171;font-size:12px;margin-bottom:10px;display:none"></div>
+    <button class="btn-login" id="btn-add-admin" onclick="addAdmin()">Adicionar usuario</button>
+  </div>
+</div>
+
+<script>
+var SB="https://pxiibrvyszhlhbqnerok.supabase.co";
+var KY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4aWlicnZ5c3pobGhicW5lcm9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNzM0MzIsImV4cCI6MjA5Mjc0OTQzMn0.IlCf0dq13OIDeK8UWCzXIQOluDm7Q7vmfeKcYO-QBds";
+function q(id){return document.getElementById(id);}
+function get(p){return fetch(SB+"/rest/v1/"+p,{headers:{"apikey":KY,"Authorization":"Bearer "+KY}}).then(function(r){return r.json();});}
+function post(p,m,b){return fetch(SB+"/rest/v1/"+p,{method:m,headers:{"apikey":KY,"Authorization":"Bearer "+KY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(b)}).then(function(r){return r.text();});}
+
+// CONFIG
+function carregarConfig(){
+  var cfg=JSON.parse(localStorage.getItem('ep_config')||'{}');
+  if(cfg.nome){
+    q('top-logo-txt').innerHTML='<span>'+cfg.nome.substring(0,4).toUpperCase()+'</span>'+cfg.nome.substring(4,8).toUpperCase();
+    q('login-logo-txt').innerHTML='<span>'+cfg.nome.substring(0,4).toUpperCase()+'</span>'+cfg.nome.substring(4,8).toUpperCase();
+  }
+  if(cfg.logo){
+    q('top-logo-img').src=cfg.logo;q('top-logo-img').style.display='block';q('top-logo-txt').style.display='none';
+    q('login-logo-img').src=cfg.logo;q('login-logo-img').style.display='block';q('login-logo-txt').style.display='none';
+  }
+  if(cfg.cor){
+    document.documentElement.style.setProperty('--primary',cfg.cor);
+    document.documentElement.style.setProperty('--primary-dark',cfg.cor);
+  }
+}
+function salvarConfig(){
+  var cfg={nome:q('cfg-nome').value.trim(),slogan:q('cfg-slogan').value.trim(),logo:q('cfg-logo').value.trim(),cor:q('cfg-cor').value.trim()||'#2aab47'};
+  localStorage.setItem('ep_config',JSON.stringify(cfg));
+  carregarConfig();
+  q('ov-config').classList.remove('on');
+  alert('Configuracoes salvas!');
+}
+function abrirConfig(){
+  var cfg=JSON.parse(localStorage.getItem('ep_config')||'{}');
+  q('cfg-nome').value=cfg.nome||'';q('cfg-slogan').value=cfg.slogan||'';q('cfg-logo').value=cfg.logo||'';q('cfg-cor').value=cfg.cor||'#2aab47';
+  q('new-nome').value='';q('new-senha').value='';
+  q('gestao-alert').style.display='none';
+  get('admins?select=id,nome,nivel&order=nome.asc').then(function(d){
+    var h='';(d||[]).forEach(function(a){var lvl={master:'Master',admin:'Admin',visualizador:'Visualizador'};h+='<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div><div style="font-size:13px;font-weight:600;color:#fff">'+a.nome+'</div><div style="font-size:10px;color:#6b7d6b;margin-top:2px">'+(lvl[a.nivel]||a.nivel)+'</div></div><button onclick="delAdmin('+a.id+')" style="background:transparent;border:1px solid rgba(239,68,68,.2);color:#f87171;border-radius:8px;padding:4px 10px;font-size:11px;cursor:pointer">Remover</button></div>';});
+    if(!h)h='<div style="color:#6b7d6b;font-size:12px">Nenhum usuario</div>';
+    q('lista-admins').innerHTML=h;
+  });
+  q('ov-config').classList.add('on');
+}
+function addAdmin(){
+  var nome=q('new-nome').value.trim();var senha=q('new-senha').value.trim();var nivel=q('new-nivel').value;
+  if(!nome||!senha){q('gestao-alert').textContent='Preencha nome e senha!';q('gestao-alert').style.display='block';return;}
+  var btn=q('btn-add-admin');btn.textContent='Salvando...';btn.disabled=true;
+  post('admins','POST',{nome:nome,senha:senha,nivel:nivel}).then(function(){q('new-nome').value='';q('new-senha').value='';q('gestao-alert').style.display='none';abrirConfig();}).finally(function(){btn.textContent='Adicionar usuario';btn.disabled=false;});
+}
+function delAdmin(id){if(!confirm('Remover?'))return;post('admins?id=eq.'+id,'DELETE',{}).then(function(){abrirConfig();});}
+
+function mostrar(u){
+  q('uav').textContent=u.nome.charAt(0).toUpperCase();
+  q('uname').textContent=u.nome;
+  var lvls={master:'Administrador master',admin:'Administrador',visualizador:'Visualizador'};
+  q('ulevel').textContent=lvls[u.nivel]||u.nivel;
+  var pill=q('upill');
+  pill.textContent=(u.nivel||'').charAt(0).toUpperCase()+(u.nivel||'').slice(1);
+  pill.className='user-pill '+(u.nivel==='master'?'pill-master':u.nivel==='admin'?'pill-admin':'pill-vis');
+  q('hero').style.display='block';q('mods').style.display='block';q('footer').style.display='flex';
+  if(u.nivel==='visualizador')q('row-ops').style.display='none';
+  if(u.nivel!=='master'){q('row-sistema').style.display='none';q('sec-sistema').style.display='none';}
+  q('ov-login').classList.remove('on');
+  sessionStorage.setItem('ep_user',JSON.stringify(u));
+}
+function entrar(){
+  var nome=q('lin').value.trim();var senha=q('lpass').value.trim();
+  if(!nome||!senha){q('alrt').textContent='Preencha usuario e senha!';q('alrt').style.display='block';return;}
+  var btn=q('bent');btn.textContent='Verificando...';btn.disabled=true;q('alrt').style.display='none';
+  get('admins?nome=eq.'+encodeURIComponent(nome)+'&select=*').then(function(d){
+    if(!d||!d.length){q('alrt').textContent='Usuario nao encontrado.';q('alrt').style.display='block';return;}
+    var u=d[0];
+    if(u.senha!==senha){q('alrt').textContent='Senha incorreta.';q('alrt').style.display='block';return;}
+    mostrar(u);
+  }).catch(function(){q('alrt').textContent='Erro de conexao.';q('alrt').style.display='block';}).finally(function(){btn.textContent='Entrar';btn.disabled=false;});
+}
+function sair(){sessionStorage.removeItem('ep_user');location.reload();}
+q('lin').addEventListener('keydown',function(e){if(e.key==='Enter')q('lpass').focus();});
+q('lpass').addEventListener('keydown',function(e){if(e.key==='Enter')entrar();});
+carregarConfig();
+var saved=sessionStorage.getItem('ep_user');
+if(saved){try{mostrar(JSON.parse(saved));}catch(e){q('ov-login').classList.add('on');}}
+else{q('ov-login').classList.add('on');}
+</script>
+</body>
+</html>
